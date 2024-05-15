@@ -4,17 +4,6 @@
  * Copyright 2023 Fonticons, Inc.
  */
 
-:root {
-  --theme-color: #0a1992;
-}
-
-.custom-element {
-  color: var(--theme-color);
-}
-
-body {
-  background-color: var(--theme-color);
-}
 
 
 
