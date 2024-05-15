@@ -24,20 +24,6 @@ const ClerkProvider = dynamic(() =>
   import('@clerk/nextjs').then(m => m.ClerkProvider)
 )
 
-import Head from 'next/head';
-
-function MyPage() {
-  return (
-    <div>
-      <Head>
-        <meta name="theme-color" content="#0a1992" />
-        {/* 其他的<head>标签 */} 
-      </Head>
-      {/* 页面内容 */}
-    </div>
-  );
-}
-
 
 
 /**
