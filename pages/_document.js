@@ -12,7 +12,9 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-           
+          {/* 设置主题颜色 */}
+          <meta name="theme-color" content="#0a1992" />
+          
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
             <>
@@ -31,7 +33,6 @@ class MyDocument extends Document {
             </>
           )}
         </Head>
-
         <body>
           <Main />
           <NextScript />
