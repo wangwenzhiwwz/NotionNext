@@ -18,7 +18,21 @@ import BLOG from '@/blog.config'
 import ExternalPlugins from '@/components/ExternalPlugins'
 import GlobalHead from '@/components/GlobalHead'
 
+import Head from 'next/head';
 
+function MyPage() {
+  return (
+    <div>
+      <Head>
+        <meta name="theme-color" content="#0a1992" />
+        {/* 其他的<head>标签 */} 
+      </Head>
+      {/* 页面内容 */}
+    </div>
+  );
+}
+
+export default MyPage;
 
 
 /**
