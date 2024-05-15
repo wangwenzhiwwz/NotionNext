@@ -43,7 +43,9 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-           
+          {/* 设置主题颜色 */}
+          <meta name="theme-color" content="#0a1992" />
+          
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
             <>
@@ -65,7 +67,6 @@ class MyDocument extends Document {
           {/* 预先设置深色模式，避免闪烁 */}
           <script dangerouslySetInnerHTML={{ __html: darkModeScript }} />
         </Head>
-
         <body>
           <Main />
           <NextScript />
