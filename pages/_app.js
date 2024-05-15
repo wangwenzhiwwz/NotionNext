@@ -32,6 +32,24 @@ const AppErrorBoundary = ErrorHandler.createErrorBoundary(
   </div>
 )
 
+
+// pages/_app.js
+import Head from 'next/head';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Head>
+        <meta name="theme-color" content="#0a1992" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+}
+
+export default MyApp;
+
 /**
  * App挂载DOM 入口文件
  * @param {*} param0
