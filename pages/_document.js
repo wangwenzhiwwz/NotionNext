@@ -43,6 +43,7 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
+      <meta name="theme-color" content="#0a1992">
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
             <>
