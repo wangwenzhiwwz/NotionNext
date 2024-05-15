@@ -12,8 +12,6 @@ class MyDocument extends Document {
     return (
       <Html lang={BLOG.LANG}>
         <Head>
-         
-          
           {/* 预加载字体 */}
           {BLOG.FONT_AWESOME && (
             <>
