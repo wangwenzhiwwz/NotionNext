@@ -6,7 +6,7 @@ name: pushUrl
 on:
   push:
   schedule:
-    - cron: '0 23 * * *' # https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows#scheduled-events-schedule
+    - cron: '0 23 * * *'
   workflow_dispatch:
     inputs:
       unconditional-invoking:
@@ -15,25 +15,23 @@ on:
         required: true
         default: true
 
-# on:
-  # schedule:
-  #   - cron: '*/5 * * * *' # 每5分钟一次，测试用
-
 jobs:
   bot:
-    runs-on: ubuntu-latest # 运行环境为最新版的Ubuntu
+    runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout codes' # 步骤一，获取仓库代码
+      - name: 'Checkout codes'
         uses: actions/checkout@v7
-      # - name: 'Run baiduPush' # 步骤二，执行sh命令文件
-      #   run: npm install && npm run baiduPush # 运行目录是仓库根目录
-      - name: Set up Python 3.8
+
+      # Python 3.8 is unavailable on the current Ubuntu 26.04 runner.
+      # The script uses only standard-library modules and requests, so use a
+      # currently supported Python runtime.
+      - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: 3.8
+          python-version: '3.12'
 
       - name: Install requests
-        run: pip install requests
+        run: python -m pip install --disable-pip-version-check requests
 
       - name: Push
         env:
@@ -43,13 +41,13 @@ jobs:
         run: |
           if [ -n "$URL" ]; then
             if [ -n "$BAIDU_TOKEN" ]; then
-              python pushUrl.py --url $URL --baidu_token $BAIDU_TOKEN
+              python pushUrl.py --url "$URL" --baidu_token "$BAIDU_TOKEN"
             else
               echo "请前往 Github Action Secrets 配置 BAIDU_TOKEN:"
               echo "详情参见: 'https://www.ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9'"
             fi
             if [ -n "$BING_API_KEY" ]; then
-              python pushUrl.py --url $URL --bing_api_key $BING_API_KEY
+              python pushUrl.py --url "$URL" --bing_api_key "$BING_API_KEY"
             else
               echo "请前往 Github Action Secrets 配置 BING_API_KEY:"
               echo "详情参见: 'https://www.ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9'"
@@ -58,4 +56,3 @@ jobs:
             echo "请前往 Github Action Secrets 配置 URL:"
             echo "详情参见: 'https://www.ghlcode.cn/fe032806-5362-4d82-b746-a0b26ce8b9d9'"
           fi
-      

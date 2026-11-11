@@ -14,6 +14,8 @@ export async function fetchSite(
         return handleDataBeforeReturn(siteData)
     } catch (e) {
         console.error('[site] fetch failed', e)
-        return EmptyData(pageId)
+        // Let the caller/ISR handle the failure. Returning an empty catalog here
+        // can replace a previously complete page with a blank one.
+        throw e
     }
 }
