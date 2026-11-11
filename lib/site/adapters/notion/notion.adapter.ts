@@ -12,16 +12,23 @@ import type { FetchSiteParams, SiteData } from '../../site.types'
 export async function fetchSiteFromNotion(
   params: FetchSiteParams
 ): Promise<SiteData> {
-  const siteData = await fetchGlobalAllData({
+  // SiteDataApi.js is a legacy JavaScript module without TypeScript
+  // declarations, so treat its result as unknown until it is validated.
+  const result: unknown = await fetchGlobalAllData({
     pageId: params.pageId,
     from: params.from,
     locale: params.locale,
     requireAvailableData: true
   })
 
-  if (!siteData || !Array.isArray(siteData.allPages)) {
+  if (
+    typeof result !== 'object' ||
+    result === null ||
+    !('allPages' in result) ||
+    !Array.isArray((result as { allPages?: unknown }).allPages)
+  ) {
     throw new Error('Notion site catalog returned an invalid data structure')
   }
 
-  return siteData
+  return result as SiteData
 }
