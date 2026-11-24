@@ -7,6 +7,7 @@ module.exports = {
   // Notion数据库视图ID，可选，直接锁定特定视图（支持完整UUID或无连字符UUID，例如 a886285dbf4e4a56aaf410bd473aedc9）
   NOTION_VIEW_ID:
     process.env.NEXT_PUBLIC_NOTION_VIEW_ID ||
+    process.env.NEXT_PUBLIC_NOTION_VIEW_I ||
     process.env.NOTION_VIEW_ID ||
     '',
 
