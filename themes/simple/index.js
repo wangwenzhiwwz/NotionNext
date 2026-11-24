@@ -89,7 +89,7 @@ const LayoutBase = props => {
         <div
           id='container-wrapper'
           className={
-            (JSON.parse(siteConfig('LAYOUT_SIDEBAR_REVERSE'))
+            (Boolean(siteConfig('LAYOUT_SIDEBAR_REVERSE', false) === true || siteConfig('LAYOUT_SIDEBAR_REVERSE', false) === 'true')
               ? 'flex-row-reverse'
               : '') + ' w-full flex-1 flex items-start max-w-9/10 mx-auto pt-12'
           }>
