@@ -4,8 +4,17 @@
  * 此文件内容可以通过环境变量覆盖，但是不支持用NOTION_CONFIG覆盖
  */
 module.exports = {
+  // Notion数据库视图ID，可选，直接锁定特定视图（支持完整UUID或无连字符UUID，例如 a886285dbf4e4a56aaf410bd473aedc9）
+  NOTION_VIEW_ID:
+    process.env.NEXT_PUBLIC_NOTION_VIEW_ID ||
+    process.env.NOTION_VIEW_ID ||
+    '',
+
   // Notion数据库索引，取notion的第几个视图作为站点数据和排序依据
-  NOTION_INDEX: process.env.NEXT_PUBLIC_NOTION_INDEX || 0,  // 默认取Notion数据库中的第1个视图
+  NOTION_INDEX:
+    process.env.NEXT_PUBLIC_NOTION_INDEX ||
+    process.env.NOTION_INDEX ||
+    0, // 默认取Notion数据库中的第1个视图
   // 由于计算机是从0开始计数、而非从1开始。因此如果要取第二个视图，可以传1，取第三个视图传2，以此类推,取数据库的最后一个视图可以传-1。
 
   // 自定义配置notion数据库字段名
