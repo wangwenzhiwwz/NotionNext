@@ -134,6 +134,10 @@ const SEO = props => {
   return (
     <Head>
       <link rel='icon' href={favicon} />
+      <link rel='shortcut icon' href='/favicon.ico' />
+      <link rel='apple-touch-icon' sizes='180x180' href='/favicon.png' />
+      <link rel='icon' type='image/png' sizes='32x32' href='/favicon.png' />
+      <link rel='icon' type='image/png' sizes='16x16' href='/favicon.png' />
       <title>{title}</title>
       <meta
         name='theme-color'
@@ -214,8 +218,6 @@ const SEO = props => {
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
       <meta name='twitter:image:alt' content={title} />
-
-      <link rel='icon' href={BLOG_FAVICON} />
 
       {COMMENT_WEBMENTION_ENABLE && (
         <>
