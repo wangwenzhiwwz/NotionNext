@@ -88,4 +88,47 @@ describe('adjustPageProperties', () => {
     expect(page.slug).toBe('manual/a-manual')
     expect(page.href).toBe('/manual/a-manual')
   })
+
+  it('falls back to page id when slug is empty string or undefined', () => {
+    const postWithEmptySlug = {
+      id: 'post-id-123',
+      type: 'Post',
+      slug: ''
+    }
+    const postWithoutSlug = {
+      id: 'post-id-456',
+      type: 'Post'
+    }
+
+    adjustPageProperties(postWithEmptySlug, {})
+    adjustPageProperties(postWithoutSlug, {})
+
+    expect(postWithEmptySlug.slug).toBe('article/post-id-123')
+    expect(postWithEmptySlug.href).toBe('/article/post-id-123')
+    expect(postWithoutSlug.slug).toBe('article/post-id-456')
+    expect(postWithoutSlug.href).toBe('/article/post-id-456')
+  })
+
+  it('preserves full string status without chopping it to a single character', async () => {
+    const getPageProperties = (await import('@/lib/db/notion/getPageProperties')).default
+    const block = {
+      id: 'block-id',
+      created_time: 1700000000000,
+      last_edited_time: 1700000000000,
+      properties: {
+        'status-prop': [['Published']],
+        'type-prop': [['Post']]
+      }
+    }
+    const schema = {
+      'status-prop': { name: 'status', type: 'status' },
+      'type-prop': { name: 'type', type: 'text' }
+    }
+    const { getTextContent } = require('notion-utils')
+    getTextContent.mockImplementation(val => val?.[0]?.[0] || '')
+
+    const result = await getPageProperties('block-id', block, schema, null, [])
+    expect(result.status).toBe('Published')
+    expect(result.type).toBe('Post')
+  })
 })

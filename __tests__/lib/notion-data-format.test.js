@@ -136,6 +136,31 @@ describe('Notion data format compatibility', () => {
     expect(pageIds).toEqual(['page_1', 'page_2'])
   })
 
+  it('extracts page ids from grouped reducers in viewData.reducerResults', () => {
+    const pageIds = getAllPageIds(
+      {
+        collection_1: {
+          view_1: {
+            reducerResults: {
+              'results:select:CategoryA': {
+                blockIds: ['page_1', 'page_2']
+              },
+              'results:select:CategoryB': {
+                blockIds: ['page_3']
+              }
+            }
+          }
+        }
+      },
+      'collection_1',
+      {},
+      ['view_1'],
+      {}
+    )
+
+    expect(pageIds).toEqual(['page_1', 'page_2', 'page_3'])
+  })
+
   it('does not merge reducerResults when collection group results are explicitly empty', () => {
     const pageIds = getAllPageIds(
       {
