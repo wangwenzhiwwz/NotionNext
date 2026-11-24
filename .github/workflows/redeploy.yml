@@ -1,0 +1,26 @@
+name: Trigger Cloudflare Pages Re-deploy
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run once daily at 04:00 UTC (12:00 PM CST) to pick up new Notion posts
+    - cron: '0 4 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Deploy Hook
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}" ]; then
+            echo "Triggering Cloudflare Deploy Hook..."
+            curl -s -X POST "${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}"
+            echo "Deploy hook triggered successfully!"
+          else
+            echo "Notice: CLOUDFLARE_DEPLOY_HOOK secret is not configured in GitHub repository secrets."
+            echo "To enable one-click or scheduled re-deployment:"
+            echo "1. Go to Cloudflare Pages > Settings > Builds & deployments > Deploy hooks > Add hook"
+            echo "2. Copy the hook URL"
+            echo "3. Go to GitHub repo > Settings > Secrets and variables > Actions > New repository secret"
+            echo "4. Name: CLOUDFLARE_DEPLOY_HOOK, Value: <your-hook-url>"
+          fi
