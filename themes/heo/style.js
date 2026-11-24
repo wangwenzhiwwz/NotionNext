@@ -44,8 +44,8 @@ const Style = () => {
         --heo-color-card: #ffffff;
         --heo-color-card-dark: #1e1e1e;
         --heo-color-card-muted: #f1f3f8;
-        --heo-color-border: #4f46e5;
-        --heo-color-border-dark: #ca8a04;
+        --heo-color-border: transparent;
+        --heo-color-border-dark: transparent;
         --heo-color-text-light: #000000;
         --heo-color-text-secondary-light: #4b5563;
         --heo-color-text-dark: #f3f4f6;
@@ -109,8 +109,18 @@ const Style = () => {
         color: var(--heo-color-primary-hover);
       }
 
-      #theme-heo .hover\:border-indigo-600:hover {
-        border-color: var(--heo-color-border);
+      #theme-heo .hover\:border-indigo-600:hover,
+      #theme-heo [class*="hover:border-"]:hover,
+      #theme-heo .group:hover [class*="group-hover:border-"] {
+        border-color: transparent !important;
+      }
+
+      #theme-heo .card,
+      #theme-heo .border:not(input):not(textarea):not(select),
+      #theme-heo [class*="border-gray-"],
+      #theme-heo [class*="border-indigo-"],
+      #theme-heo [class*="border-blue-"] {
+        border-color: transparent !important;
       }
 
       .dark #theme-heo .dark\:hover\:border-yellow-600:hover {
